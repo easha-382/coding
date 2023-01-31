@@ -1,0 +1,18 @@
+class Solution {
+    List <Integer> list=new ArrayList<>();
+    public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
+
+        Addele(root1);
+        Addele(root2);
+        Collections.sort(list);
+        return list;
+    }
+    public void Addele(TreeNode root){
+        if(root==null){
+            return;
+        }
+        Addele(root.left);
+        list.add(root.val);
+        Addele(root.right);
+    }
+}
