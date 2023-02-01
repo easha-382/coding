@@ -1,0 +1,25 @@
+class Solution {
+    ArrayList<TreeNode> al=new ArrayList<>();
+    public void Inorder( TreeNode root){
+        if(root==null){
+            return ;
+        }
+        
+        Inorder(root.left);
+        al.add(root);
+        Inorder(root.right);
+    }
+    public TreeNode increasingBST(TreeNode root) {
+        Inorder(root);
+        TreeNode n= new TreeNode(0);
+        TreeNode curr = n;
+        if(al.size()>0){
+            for(TreeNode node : al){
+                node.left=null;
+                curr.right=node;
+                curr=curr.right;
+            }
+        }
+        return n.right;
+    }
+}
