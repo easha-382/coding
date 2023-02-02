@@ -1,0 +1,25 @@
+class Solution {
+    ArrayList<Integer> al=new ArrayList<>();
+    public TreeNode balanceBST(TreeNode root) {
+        Inorder(root);
+        return Baltree(0,al.size()-1,al);
+    }
+    public void Inorder(TreeNode root){
+        if(root==null){
+            return;
+        }
+        Inorder(root.left);
+        al.add(root.val);
+        Inorder(root.right);
+    }
+    public TreeNode Baltree(int start,int end,ArrayList<Integer> al){
+        if(start>end){
+            return null;
+        }
+        int mid=(start+end)/2;
+        TreeNode node=new TreeNode(al.get(mid));
+        node.left=Baltree(start,mid-1,al);
+        node.right=Baltree(mid+1,end,al);
+        return node;
+    }
+}
