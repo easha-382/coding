@@ -1,0 +1,19 @@
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        if(image[sr][sc]==color){
+            return image;
+        }
+        nflood(image,sr,sc,image[sr][sc],color);
+        return image;
+    }
+    public void nflood(int[][] image,int sr,int sc,int prevcolor,int newcolor){
+        if(sr<0 || sc<0 || sr>=image.length || sc>=image[0].length || image[sr][sc]!=prevcolor){
+            return;
+        }
+        image[sr][sc]=newcolor;
+        nflood(image,sr+1,sc,prevcolor,newcolor);
+        nflood(image,sr-1,sc,prevcolor,newcolor);
+        nflood(image,sr,sc+1,prevcolor,newcolor);
+        nflood(image,sr,sc-1,prevcolor,newcolor);
+    }
+}
