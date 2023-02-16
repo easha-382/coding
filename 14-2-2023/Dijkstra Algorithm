@@ -1,0 +1,38 @@
+class pair{
+    int dist,dest;
+    pair(int dist,int dest){
+        this.dist=dist;
+        this.dest=dest;
+    }
+}
+
+class Solution
+{
+    //Function to find the shortest distance of all the vertices
+    //from the source vertex S.
+    static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S)
+    {
+        // Write your code here
+        PriorityQueue<pair> p=new PriorityQueue<pair>((x,y)->x.dest-y.dest);
+        int mindist[]=new int[V];
+        for(int i=0;i<V;i++){
+            mindist[i]=Integer.MAX_VALUE;
+        }
+        mindist[S]=0;
+        p.add(new pair(S,0));
+        while(p.size()>0){
+            int distance=p.peek().dist;
+            int destination=p.peek().dest;
+            p.remove();
+            for(int i=0;i<adj.get(distance).size();i++){
+                int neigh=adj.get(distance).get(i).get(0);
+                int weight=adj.get(distance).get(i).get(1);
+                if(mindist[neigh]>destination+weight){
+                    mindist[neigh]=destination+weight;
+                    p.add(new pair(neigh,mindist[neigh]));
+                }
+            }
+        }
+        return mindist;
+    }
+}
