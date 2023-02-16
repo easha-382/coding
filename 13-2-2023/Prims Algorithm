@@ -1,0 +1,42 @@
+class Pair{
+    int dest,dist;
+    Pair(int dest,int dist){
+        this.dest=dest;
+        this.dist=dist;
+    }
+}
+class Solution{
+	static int spanningTree(int V, int E, int edges[][]){
+	    // Code Here. 
+	    ArrayList<ArrayList<Pair>> adj=new ArrayList<>();
+	    for(int i=0;i<V;i++){
+	        adj.add(new ArrayList<>());
+	    }
+	    for(int i=0;i<E;i++){
+	        adj.get(edges[i][0]).add(new Pair(edges[i][1],edges[i][2]));
+	        adj.get(edges[i][1]).add(new Pair(edges[i][0],edges[i][2]));
+	    }
+	    PriorityQueue<Pair>p=new PriorityQueue<>((x,y)->x.dist-y.dist);
+	    int vis[]=new int[V];
+	    p.add(new Pair(0,0));
+	    int sum=0;
+	    while(p.size()>0){
+	        int node=p.peek().dest;
+	        int weight=p.peek().dist;
+	        p.remove();
+	        if(vis[node]==1){
+	            continue;
+	        }
+	        vis[node]=1;
+	        sum=sum+weight;
+	        for(Pair Node:adj.get(node)){
+	            int child=Node.dest;
+	            int childWeight=Node.dist;
+	            if(vis[child]==0){
+	                p.add(new Pair(child,childWeight));
+	            }
+	        }
+	    }
+	    return sum;
+	}
+}
